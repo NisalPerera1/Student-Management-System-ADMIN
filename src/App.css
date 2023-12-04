@@ -154,6 +154,17 @@ body {
 
 .card:nth-child(3) {
   background-color: #18677c;
+
+}
+
+.stucard{
+background-color: #18677c;
+width: 25%;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+padding: 8px 15px;
+border-radius: 5px;
 }
 
 .card:nth-child(4) {
@@ -261,4 +272,9 @@ body {
   position: relative;
   left: 30% !important;
   padding: 10px !important;
+}
+
+.css-46bh2p-MuiCardContent-root {
+  padding: 16px;
+  background: #18677ca3;
 }

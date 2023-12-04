@@ -4,13 +4,18 @@ const Student = require('../models/Student');
 // Create a new student
 const createStudent = async (req, res) => {
   try {
-    const student = new Student(req.body);
+    // Ensure the 'gender' property is included in the req.body
+    const { firstName, lastName, address, contactNumber, school, grade, gender, medium, image } = req.body;
+    const student = new Student({ firstName, lastName, address, contactNumber, school, grade, gender, medium, image });
+    
     await student.save();
     res.status(201).send(student);
   } catch (error) {
     res.status(400).send(error);
   }
 };
+
+
 
 // Get all students
 const getAllStudents = async (req, res) => {

@@ -11,6 +11,8 @@ const studentSchema = new mongoose.Schema({
   // Additional Details (Not required)
   school: String,
   grade : String,
+  gender: String,
+
   medium: String,
   image: String,
 

@@ -3,6 +3,14 @@ import { BsFillPersonFill, BsFillHouseDoorFill, BsFillPhoneFill, BsFillBuildingF
 import { Box, Button, Typography, Modal, TextField } from '@mui/material';
 import axios from 'axios';
 import { PulseLoader } from 'react-spinners';
+import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea } from '@mui/material';
+import maleThumbnail from './39874.jpg'
+import femaleThumbnail from './k7a0_b7ad_210527.jpg';
+
 
 const style = {
   position: 'absolute',
@@ -34,6 +42,8 @@ const addButtonStyle = {
 const StudentList = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [studentCount, setStudentCount] = useState(0);
+
   const [newStudent, setNewStudent] = useState({
     firstName: '',
     lastName: '',
@@ -41,9 +51,22 @@ const StudentList = () => {
     contactNumber: '',
     school: '',
     grade: '',
+    gender: '',
     medium: '',
     image: '',
   });
+
+  useEffect(() => {
+    // Fetch existing students from your API using Axios
+    axios.get('http://localhost:5000/students')  // Replace with your actual API endpoint
+      .then(response => {
+        setExistingStudents(response.data);
+        setStudentCount(response.data.length); // Update the count
+      })
+      .catch(error => {
+        console.error('Error fetching existing students:', error);
+      });
+  }, []);
 
   
   // Getting Student Details
@@ -92,19 +115,22 @@ const StudentList = () => {
   };
 
   return (
+    <main className='main-container'>
+
     <div>
       <div className='main-title'>
         <h3>STUDENT DASHBOARD</h3>
       </div>
       <hr />
 
-      <div className='card'>
-        <div className='card-inner'>
-          <h3>STUDENTS</h3>
-          <BsFillArchiveFill className='card_icon' />
-        </div>
-        <h1>300</h1>
-      </div>
+      <div className='stucard'>
+  <div className='card-inner'>
+    <h3>STUDENTS</h3>
+    <BsFillArchiveFill className='card_icon' />
+  </div>
+  <h1>{studentCount}</h1>
+</div>
+
 
       <Button onClick={handleOpen} style={addButtonStyle}>
         <BsFillArchiveFill style={inputIconStyle} />
@@ -218,6 +244,21 @@ const StudentList = () => {
               />
 
 <TextField
+                label="Gender"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="gender"
+                value={newStudent.gender}
+                onChange={handleInputChange}
+                InputProps={{
+                  startAdornment: (
+                    <BsBookHalf style={inputIconStyle} />
+                  ),
+                }}
+              />
+
+<TextField
             label="Medium"
             variant="outlined"
             fullWidth
@@ -260,15 +301,36 @@ const StudentList = () => {
     </Box>
   </Modal>
 
-  <h3>EXISTING STUDENTS </h3>
-  <ul>
-    {existingStudents.map(student => (
-      <li key={student.id}>
-        {student.firstName} {student.lastName}
-      </li>
-    ))}
-  </ul>
+  <h3>EXISTING STUDENTS</h3>
+      <Grid container spacing={2}>
+        {existingStudents.map((student, index) => (
+          <Grid item key={student._id} xs={12} sm={3} md={3}>
+            <Card sx={{ maxWidth: 545 }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={(student.gender?.toLowerCase() === 'male') ? maleThumbnail : femaleThumbnail}
+                  alt="green iguana"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {student.firstName} {student.lastName}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {student.address}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {student.contactNumber}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
 </div>
+</main>
 );
 };
 
