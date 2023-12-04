@@ -61,6 +61,7 @@ body {
   overflow-y: auto;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
+  margin-right: 10px;
 }
 
 .sidebar-title {
@@ -152,7 +153,7 @@ body {
 }
 
 .card:nth-child(3) {
-  background-color: #2e7d32;
+  background-color: #18677c;
 }
 
 .card:nth-child(4) {
@@ -224,4 +225,40 @@ body {
   .hedaer-left {
     display: none;
   }
+}
+
+
+/* Add these styles to your CSS file or style tag */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.modal-content {
+  width: 300px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #333;
+}
+
+/* Add any additional styles as needed */
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root{
+  font-size: 1.4rem !important;
+}
+
+.addstudentsubmit{
+  background: #18677c !important;
+  color: white !important;
+  position: relative;
+  left: 30% !important;
+  padding: 10px !important;
 }
