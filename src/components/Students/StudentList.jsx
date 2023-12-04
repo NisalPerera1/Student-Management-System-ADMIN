@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BsFillPersonFill, BsFillHouseDoorFill, BsFillPhoneFill, BsFillBuildingFill, BsBookHalf, BsFillImageFill, BsFillArchiveFill, BsFillBookFill } from 'react-icons/bs';
 import { Box, Button, Typography, Modal, TextField } from '@mui/material';
 import axios from 'axios';
+import { PulseLoader } from 'react-spinners';
 
 const style = {
   position: 'absolute',
@@ -32,6 +33,7 @@ const addButtonStyle = {
 
 const StudentList = () => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [newStudent, setNewStudent] = useState({
     firstName: '',
     lastName: '',
@@ -43,6 +45,7 @@ const StudentList = () => {
     image: '',
   });
 
+  
   // Getting Student Details
   const [existingStudents, setExistingStudents] = useState([]);
 
@@ -57,29 +60,27 @@ const StudentList = () => {
       });
   }, []);
 
-  // Axios Saving to the db
-  const handleSubmit = () => {
-    axios.post('http://localhost:5000/students/create', newStudent)
-      .then(response => {
-        console.log('Student added successfully:', response.data);
-        // You might want to update the list of existing students here
-      })
-      .catch(error => {
-        console.error('Error adding student:', error);
-      });
 
-    // Optionally, you can reset the form fields or close the modal here
-    setNewStudent({
-      firstName: '',
-      lastName: '',
-      address: '',
-      contactNumber: '',
-      school: '',
-      grade: '',
-      medium: '',
-      image: '',
-    });
-    handleClose(); // Close the modal if needed
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      setLoading(true);
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Increase the loading time
+      await axios.post('http://localhost:5000/students/create', newStudent);
+      setLoading(false);
+      setExistingStudents([...existingStudents, newStudent]); // Update the list
+      handleClose();
+    } catch (error) {
+      console.error('Error adding student:', error);
+      setLoading(false);
+    }
+  };
+
+
+  const handleAddStudent = () => {
+    // Add any logic needed when the "Add Student" button is clicked
+    // This function is currently empty; you can add further functionality if needed
   };
 
   const handleOpen = () => setOpen(true);
@@ -246,12 +247,14 @@ const StudentList = () => {
             }}
           />
 
-          <Button type='submit' className='addstudentsubmit'>
-            Add Student
-          </Button>
+<Button type='submit' className='addstudentsubmit' onClick={handleSubmit}>
+        {loading ? 'Adding...' : 'Add Student'}
+      </Button>
+
+      {loading && <PulseLoader color="#36d7b7" />}
 
 
-          
+
         </form>
       </Typography>
     </Box>
