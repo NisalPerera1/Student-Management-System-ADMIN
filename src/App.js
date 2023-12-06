@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import Dashboard from './components/Dashboard/Dashboard';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import StudentList from './components/Students/StudentList.jsx';
+import ShowStudent from './components/Students/ShowStudent.jsx';
 
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -18,12 +19,11 @@ function App() {
       <Router>
         <Header OpenSidebar={OpenSidebar} />
         <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
-        {/* Use Routes to define your navigation */}
         <Routes>
-          {/* Specify the Dashboard component only when the path is / */}
           <Route path="/" element={<Dashboard />} />
-          {/* Specify the StudentList component only when the path is /students */}
           <Route path="/students" element={<StudentList />} />
+          <Route path="/students/:id" element={<ShowStudent />} />
+
         </Routes>
       </Router>
     </div>

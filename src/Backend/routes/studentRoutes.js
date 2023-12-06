@@ -13,7 +13,7 @@ router.get('/', studentController.getAllStudents);
 router.get('/:id', studentController.getStudentById);
 
 // Update student by ID
-router.patch('/:id', studentController.updateStudentById);
+router.put('/:id', studentController.updateStudentById);
 
 // Delete student by ID
 router.delete('/:id', studentController.deleteStudentById);

@@ -278,3 +278,28 @@ border-radius: 5px;
   padding: 16px;
   background: #18677ca3;
 }
+
+.css-1wnsr1i {
+
+  background-color: #0c323c !important;
+  padding: 10px 60px 30px 60px !important;
+}
+
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
+  color: white !important;
+}
+
+.css-8j6b76-MuiInputBase-root-MuiOutlinedInput-root {
+color: aliceblue !important;
+}
+
+.EditButton, .DeleteButton{
+  margin: 75px 0px 75px 30px !important;
+  /* text-align: center; */
+  padding: 15px !important;
+}
+
+.ShowStudentData{
+  position: relative;
+  left: 6%;
+}

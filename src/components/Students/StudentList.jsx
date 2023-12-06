@@ -10,6 +10,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import maleThumbnail from './39874.jpg'
 import femaleThumbnail from './k7a0_b7ad_210527.jpg';
+import { Link } from 'react-router-dom';
 
 
 const style = {
@@ -58,7 +59,7 @@ const StudentList = () => {
 
   useEffect(() => {
     // Fetch existing students from your API using Axios
-    axios.get('http://localhost:5000/students')  // Replace with your actual API endpoint
+    axios.get('http://localhost:5000/students')  
       .then(response => {
         setExistingStudents(response.data);
         setStudentCount(response.data.length); // Update the count
@@ -73,8 +74,7 @@ const StudentList = () => {
   const [existingStudents, setExistingStudents] = useState([]);
 
   useEffect(() => {
-    // Fetch existing students from your API using Axios
-    axios.get('http://localhost:5000/students')  // Replace with your actual API endpoint
+    axios.get('http://localhost:5000/students')  
       .then(response => {
         setExistingStudents(response.data);
       })
@@ -89,10 +89,10 @@ const StudentList = () => {
   
     try {
       setLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Increase the loading time
+      await new Promise(resolve => setTimeout(resolve, 2000)); 
       await axios.post('http://localhost:5000/students/create', newStudent);
       setLoading(false);
-      setExistingStudents([...existingStudents, newStudent]); // Update the list
+      setExistingStudents([...existingStudents, newStudent]); 
       handleClose();
     } catch (error) {
       console.error('Error adding student:', error);
@@ -100,11 +100,6 @@ const StudentList = () => {
     }
   };
 
-
-  const handleAddStudent = () => {
-    // Add any logic needed when the "Add Student" button is clicked
-    // This function is currently empty; you can add further functionality if needed
-  };
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -302,9 +297,11 @@ const StudentList = () => {
   </Modal>
 
   <h3>EXISTING STUDENTS</h3>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} >
         {existingStudents.map((student, index) => (
           <Grid item key={student._id} xs={12} sm={3} md={3}>
+          <Link to={`/students/${student._id}`}>
+
             <Card sx={{ maxWidth: 545 }}>
               <CardActionArea>
                 <CardMedia
@@ -313,7 +310,7 @@ const StudentList = () => {
                   image={(student.gender?.toLowerCase() === 'male') ? maleThumbnail : femaleThumbnail}
                   alt="green iguana"
                 />
-                <CardContent>
+                <CardContent >
                   <Typography gutterBottom variant="h5" component="div">
                     {student.firstName} {student.lastName}
                   </Typography>
@@ -326,6 +323,8 @@ const StudentList = () => {
                 </CardContent>
               </CardActionArea>
             </Card>
+            </Link>
+
           </Grid>
         ))}
       </Grid>
