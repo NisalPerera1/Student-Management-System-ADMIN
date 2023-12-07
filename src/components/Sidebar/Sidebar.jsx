@@ -23,19 +23,18 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
             <BsFillArchiveFill className='icon' /> Products
           </a>
         </li>
+
+
         <li className='sidebar-list-item'>
-          <a href="/categories">
-            <BsFillGrid3X3GapFill className='icon' /> Categories
-          </a>
+        <Link to="/classes" className="link">
+        <BsFillGrid3X3GapFill className='icon' /> Classes
+        </Link>
         </li>
 
         <li className='sidebar-list-item'>
-          {/* Use Link for navigation to /students */}
           <Link to="/students" className="link">
             <BsPeopleFill className='icon' /> Students
           </Link>
-
-
         </li>
 
 

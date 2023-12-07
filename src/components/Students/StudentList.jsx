@@ -34,7 +34,21 @@ const inputIconStyle = {
 const addButtonStyle = {
   backgroundColor: '#4CAF50',
   color: 'white',
-  marginTop: '10px',
+  marginTop: '-20px',
+  padding: '39px',
+
+  '&:hover': {
+    backgroundColor: '#45a049', // Custom color on hover
+  },
+};
+
+const AssignButtonStyle = {
+  backgroundColor: 'rgb(133 99 135);',
+  color: 'white',
+  marginTop: '-20px',
+  padding: '39px',
+  marginLeft: '-20px',
+
   '&:hover': {
     backgroundColor: '#45a049', // Custom color on hover
   },
@@ -117,20 +131,33 @@ const StudentList = () => {
         <h3>STUDENT DASHBOARD</h3>
       </div>
       <hr />
-
-      <div className='stucard'>
-  <div className='card-inner'>
-    <h3>STUDENTS</h3>
-    <BsFillArchiveFill className='card_icon' />
-  </div>
-  <h1>{studentCount}</h1>
-</div>
+ 
 
 
-      <Button onClick={handleOpen} style={addButtonStyle}>
+
+<div class="flex-container">
+
+    <div className='stucard'>
+      <div className='card-inner'>
+        <h3>STUDENTS</h3>
+        <BsFillArchiveFill className='card_icon' />
+      </div>
+      <h1>{studentCount}</h1>
+    </div>  
+
+    <div>
+    <Button onClick={handleOpen} style={addButtonStyle}>
         <BsFillArchiveFill style={inputIconStyle} />
         Add New Student
       </Button>
+    </div>
+
+    <div>
+    <Button style={AssignButtonStyle}>
+        <BsFillArchiveFill style={inputIconStyle} />
+        Assign Students
+      </Button></div>  
+</div>
 
       <Modal
         open={open}

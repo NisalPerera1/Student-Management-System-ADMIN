@@ -3,9 +3,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const studentRoutes = require('./routes/studentRoutes'); // New
+const classRoutes = require ('./routes/classRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 
 // Middleware
 app.use(cors());
@@ -24,12 +25,10 @@ db.once('open', () => {
 });
 
 // Routes
-app.use('/students', studentRoutes); // New
 
-// Sample Route
-app.get('/', (req, res) => {
-  res.send('Welcome to the server!');
-});
+app.use('/students', studentRoutes);
+app.use('/classes', classRoutes);
+
 
 // Start the server
 app.listen(PORT, () => {

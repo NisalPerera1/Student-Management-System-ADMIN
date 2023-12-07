@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import StudentList from './components/Students/StudentList.jsx';
 import ShowStudent from './components/Students/ShowStudent.jsx';
+import ClassList from './components/Classes/ClassList.js';
 
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -21,8 +22,13 @@ function App() {
         <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
         <Routes>
           <Route path="/" element={<Dashboard />} />
+
           <Route path="/students" element={<StudentList />} />
           <Route path="/students/:id" element={<ShowStudent />} />
+
+          <Route path="/classes" element={<ClassList />} />
+          {/* <Route path="/classs/:id" element={<ShowClass />} /> */}
+
 
         </Routes>
       </Router>

@@ -159,7 +159,7 @@ body {
 
 .stucard{
 background-color: #18677c;
-width: 25%;
+width: 22%;
 display: flex;
 flex-direction: column;
 justify-content: space-around;
@@ -302,4 +302,24 @@ color: aliceblue !important;
 .ShowStudentData{
   position: relative;
   left: 6%;
+}
+
+
+.AssignStudents{
+  padding: auto;
+  background: #18677c;
+}
+
+
+.flex-container {
+  display: flex;
+}
+
+.flex-container > div {
+  padding: 20px;
+}
+
+
+.css-1acyv19 {
+  background-color: #0c333e !important;
 }
