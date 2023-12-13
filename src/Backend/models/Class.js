@@ -5,7 +5,7 @@ const classSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  dateTime: {
+  day: {
     type: String,
     required: true,
   },
@@ -33,6 +33,11 @@ const classSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+
+  assignedStudents: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Student', 
+  }],
 });
 
 const Class = mongoose.model('Class', classSchema);

@@ -18,4 +18,21 @@ router.put('/:id', studentController.updateStudentById);
 // Delete student by ID
 router.delete('/:id', studentController.deleteStudentById);
 
+
+router.get('/search/students/:query', async (req, res) => {
+    const query = req.params.query;
+  
+    try {
+      const students = await Student.find({
+        $or: [
+          { firstName: { $regex: query, $options: 'i' } },
+          { lastName: { $regex: query, $options: 'i' } },
+        ],
+      });
+      res.json(students);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
 module.exports = router;

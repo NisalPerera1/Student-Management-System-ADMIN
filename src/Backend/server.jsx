@@ -2,11 +2,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const studentRoutes = require('./routes/studentRoutes'); // New
-const classRoutes = require ('./routes/classRoutes');
+const studentRoutes = require('./routes/studentRoutes');
+const classRoutes = require('./routes/classRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -25,10 +25,8 @@ db.once('open', () => {
 });
 
 // Routes
-
 app.use('/students', studentRoutes);
-app.use('/classes', classRoutes);
-
+app.use('/api/classes', classRoutes); // Use this line only
 
 // Start the server
 app.listen(PORT, () => {

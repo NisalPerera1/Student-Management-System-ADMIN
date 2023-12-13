@@ -135,7 +135,7 @@ const StudentList = () => {
 
 
 
-<div class="flex-container">
+<div className="flex-container">
 
     <div className='stucard'>
       <div className='card-inner'>

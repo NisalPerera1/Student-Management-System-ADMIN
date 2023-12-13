@@ -315,6 +315,10 @@ color: aliceblue !important;
   display: flex;
 }
 
+.flex-container2 {
+  display: flex;
+}
+
 .flex-container > div {
   padding: 20px;
 }
@@ -322,4 +326,56 @@ color: aliceblue !important;
 
 .css-1acyv19 {
   background-color: #0c333e !important;
+}
+
+
+.SearchButton{
+  color: rgb(150, 150, 150) !important;
+  padding: 10px !important;
+  border-radius: 0px !important;
+}
+
+.SearchInput{
+  padding: 6px 60px 8px 20px !important;
+  position: relative !important;
+  border-radius: 0px !important;
+
+}
+
+/* Add these styles to your existing CSS or create a new stylesheet */
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content div {
+  padding: 12px;
+  cursor: pointer;
+}
+
+.dropdown-content div:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown when the input is focused */
+input:focus + .dropdown-content {
+  display: block;
+}
+
+.SearchResults{
+
+background: azure;
+color: black;
+font-family: cursive;
+margin: 0 0 0;
+position: fixed;
+padding: 10px 226px 10px 20px;
+}
+
+.SearchInput{
+  font-size: larger;
 }

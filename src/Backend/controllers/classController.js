@@ -3,11 +3,11 @@ const Class = require('../models/Class');
 // Controller to create a new class
 const createClass = async (req, res) => {
   try {
-    const { name, dateTime, time, location, contactNumber, grade, medium, fee } = req.body;
+    const { name, day, time, location, contactNumber, grade, medium, fee } = req.body;
 
     const newClass = new Class({
       name,
-      dateTime,
+      day,
       time,
       location,
       contactNumber,
@@ -51,13 +51,13 @@ const getClassById = async (req, res) => {
 const updateClassById = async (req, res) => {
   try {
     const classId = req.params.id;
-    const { name, dateTime, time, location, contactNumber, grade, medium, fee } = req.body;
+    const { name, day, time, location, contactNumber, grade, medium, fee } = req.body;
 
     const updatedClass = await Class.findByIdAndUpdate(
       classId,
       {
         name,
-        dateTime,
+        day,
         time,
         location,
         contactNumber,
@@ -87,10 +87,12 @@ const deleteClassById = async (req, res) => {
   }
 };
 
+
 module.exports = {
   createClass,
   getAllClasses,
   getClassById,
   updateClassById,
   deleteClassById,
+  assignStudentToClass,
 };

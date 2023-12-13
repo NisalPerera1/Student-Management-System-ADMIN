@@ -3,6 +3,7 @@ import React from 'react'
 import 
  {BsFillBellFill, BsFillEnvelopeFill, BsPersonCircle, BsSearch, BsJustify}
  from 'react-icons/bs'
+import Search from '../Search/Search';
 
 function Header({OpenSidebar}) {
   return (
@@ -10,8 +11,12 @@ function Header({OpenSidebar}) {
         <div className='menu-icon'>
             <BsJustify className='icon' onClick={OpenSidebar}/>
         </div>
-        <div className='header-left'>
-            <BsSearch  className='icon'/>
+        <div className='header-left' >
+       <div class="flex-container2">
+            <Search/>
+
+        </div> 
+            
         </div>
         <div className='header-right'>
             <BsFillBellFill className='icon'/>

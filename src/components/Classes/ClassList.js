@@ -10,6 +10,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import { Link } from 'react-router-dom';
+import MenuItem from '@mui/material/MenuItem';
+
 
 const style = {
   position: 'absolute',
@@ -46,6 +48,7 @@ const AssignButtonStyle = {
   marginTop: '-20px',
   padding: '39px',
   marginLeft: '-20px',
+  backgroundColor: 'darkmagenta',
 
   '&:hover': {
     backgroundColor: '#45a049', // Custom color on hover
@@ -56,6 +59,7 @@ const ClassList = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [classCount, setClassCount] = useState(0);
+  const day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   const [newClass, setNewClass] = useState({
     name: '',
@@ -67,7 +71,7 @@ const ClassList = () => {
 
   useEffect(() => {
     // Fetch existing classes from your API using Axios
-    axios.get('http://localhost:5002/classes')  
+    axios.get('http://localhost:5000/classes')  
       .then(response => {
         setExistingClasses(response.data);
         setClassCount(response.data.length); // Update the count
@@ -80,7 +84,7 @@ const ClassList = () => {
   const [existingClasses, setExistingClasses] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5002/classes')  
+    axios.get('http://localhost:5000/classes')  
       .then(response => {
         setExistingClasses(response.data);
       })
@@ -95,7 +99,7 @@ const ClassList = () => {
     try {
       setLoading(true);
       await new Promise(resolve => setTimeout(resolve, 2000)); 
-      await axios.post('http://localhost:5002/classes/create', newClass);
+      await axios.post('http://localhost:5000/classes/create', newClass);
       setLoading(false);
       setExistingClasses([...existingClasses, newClass]); 
       handleClose();
@@ -116,13 +120,13 @@ const ClassList = () => {
   return (
     <main className='main-container'>
 
-    <div>
+<div>
       <div className='main-title'>
         <h3>CLASS DASHBOARD</h3>
       </div>
       <hr />
 
-      <div class="flex-container">
+      <div className="flex-container">
 
         <div className='stucard'>
           <div className='card-inner'>
@@ -176,21 +180,27 @@ const ClassList = () => {
                     />
 
 <TextField
-  label="Date"
-  variant="outlined"
-  fullWidth
-  margin="normal"
-  type="date"
-  name="dateTime"
-  value={newClass.dateTime}
-  onChange={handleInputChange}
-  InputProps={{
-    startAdornment: (
-      <BsFillHouseDoorFill style={inputIconStyle} />
-    ),
-  }}
-  required
-/>
+        label="Day of the Week"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        select
+        name="day"
+        value={newClass.day}
+        onChange={handleInputChange}
+        InputProps={{
+          startAdornment: (
+            <BsFillHouseDoorFill style={inputIconStyle} />
+          ),
+        }}
+        required
+      >
+        {day.map((day, index) => (
+          <MenuItem key={index} value={day}>
+            {day}
+          </MenuItem>
+        ))}
+      </TextField>
 
 <TextField
   label="Time"
@@ -335,4 +345,3 @@ const ClassList = () => {
 };
 
 export default ClassList;
-
