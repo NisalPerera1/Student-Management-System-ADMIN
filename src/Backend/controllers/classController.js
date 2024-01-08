@@ -35,17 +35,23 @@ const getAllClasses = async (req, res) => {
   }
 };
 
+
+
+
 // Controller to get a class by ID
 const getClassById = async (req, res) => {
   try {
-    const classId = req.params.id;
-    const foundClass = await Class.findById(classId);
-    res.json(foundClass);
+    const classes = await Class.findById(req.params.id);
+    if (!classes) {
+      return res.status(404).send({ error: 'Class not found' });
+    }
+    res.send(classes);
   } catch (error) {
-    console.error('Error fetching class by ID:', error);
-    res.status(500).json({ error: 'Error fetching class by ID' });
+    res.status(500).send(error);
   }
 };
+
+
 
 // Controller to update a class by ID
 const updateClassById = async (req, res) => {
@@ -94,5 +100,4 @@ module.exports = {
   getClassById,
   updateClassById,
   deleteClassById,
-  assignStudentToClass,
 };

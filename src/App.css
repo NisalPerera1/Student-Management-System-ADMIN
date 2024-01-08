@@ -324,9 +324,14 @@ color: aliceblue !important;
 }
 
 
-.css-1acyv19 {
+.css-1acyv19, .css-385phj {
   background-color: #0c333e !important;
 }
+
+.css-3su884-MuiPaper-root {
+  background-color: transparent !important;
+  color: #9e9ea4 !important;
+}  
 
 
 .SearchButton{
@@ -378,4 +383,18 @@ padding: 10px 226px 10px 20px;
 
 .SearchInput{
   font-size: larger;
+}
+
+.TableHead{
+  background: black;
+}
+
+.css-1ygcj2i-MuiTableCell-root {
+  color:white !important;
+
+}
+
+.EditClassItem, .ShowClassData{
+  margin-left: 50px;
+  padding: 10px 0 0 0;
 }

@@ -44,9 +44,9 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </a>
         </li>
         <li className='sidebar-list-item'>
-          <a href="">
-            <BsMenuButtonWideFill className='icon' /> Reports
-          </a>
+        <Link to="/Calender" className="link">
+                      <BsMenuButtonWideFill className='icon' /> Calender
+         </Link>
         </li>
         <li className='sidebar-list-item'>
           <a href="">

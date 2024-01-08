@@ -72,7 +72,6 @@ const StudentList = () => {
   });
 
   useEffect(() => {
-    // Fetch existing students from your API using Axios
     axios.get('http://localhost:5000/students')  
       .then(response => {
         setExistingStudents(response.data);

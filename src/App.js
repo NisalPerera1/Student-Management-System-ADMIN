@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import StudentList from './components/Students/StudentList.jsx';
 import ShowStudent from './components/Students/ShowStudent.jsx';
 import ClassList from './components/Classes/ClassList.js';
+import ShowClass from './components/Classes/ShowClass.js';
+import Calendar from './components/calender/calender.js';
 
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -27,7 +29,9 @@ function App() {
           <Route path="/students/:id" element={<ShowStudent />} />
 
           <Route path="/classes" element={<ClassList />} />
-          {/* <Route path="/classs/:id" element={<ShowClass />} /> */}
+          <Route path="/classes/:id" element={<ShowClass/>} />
+
+          <Route path="/calender" element={<Calendar />} />
 
 
         </Routes>

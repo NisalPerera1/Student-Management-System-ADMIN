@@ -9,12 +9,8 @@ router.get('/', classController.getAllClasses);
 router.get('/:id', classController.getClassById);
 router.put('/:id', classController.updateClassById);
 router.delete('/:id', classController.deleteClassById);
-router.post('/:classId/assign/:studentId', classController.assignStudentToClass);
 
 
-app.get('/test', (req, res) => {
-    res.send('Test route works!');
-  });
 
 
 router.get('/search/class', async (req, res) => {

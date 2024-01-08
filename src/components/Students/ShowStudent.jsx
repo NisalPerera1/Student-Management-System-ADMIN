@@ -159,6 +159,7 @@ const ShowStudent = () => {
   return (
     <div>
       <div className='ShowStudentData'>
+        
         {/* Display student details */}
         <h2>{`${student.firstName} ${student.lastName}`}</h2>
         <p><strong>Address:</strong> {student.address}</p>
