@@ -41,10 +41,7 @@ const ClassCard = ({ classCount, handleOpen }) => {
         </Button>
       </div>
       <div>
-        <Button style={assignButtonStyle}>
-          <BsFillArchiveFill style={{ marginRight: '10px', fontSize: '1.5em', verticalAlign: 'middle' }} />
-          Assign Students
-        </Button>
+
       </div>
     </div>
   );

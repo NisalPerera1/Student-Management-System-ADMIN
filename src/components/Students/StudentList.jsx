@@ -133,7 +133,6 @@ const StudentList = () => {
  
 
 
-
 <div className="flex-container">
 
     <div className='stucard'>
@@ -150,12 +149,10 @@ const StudentList = () => {
         Add New Student
       </Button>
     </div>
+    </div>
 
     <div>
-    <Button style={AssignButtonStyle}>
-        <BsFillArchiveFill style={inputIconStyle} />
-        Assign Students
-      </Button></div>  
+ 
 </div>
 
       <Modal

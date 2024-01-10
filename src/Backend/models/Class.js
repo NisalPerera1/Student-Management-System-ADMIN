@@ -34,17 +34,10 @@ const classSchema = new mongoose.Schema({
     required: true,
   },
 
-  assignedStudents: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Student', 
-  }],
 
+    assignedStudents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
 
-
-  assignedStudents: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Student',
-  }],
+  
 
 });
 

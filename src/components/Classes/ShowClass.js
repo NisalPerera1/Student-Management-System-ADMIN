@@ -19,6 +19,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
+import AssignStudentsModal from './AssignStudentsModal';
 
 
 const ShowClass = () => {
@@ -26,6 +27,7 @@ const ShowClass = () => {
   const navigate = useNavigate();
   const [classData, setClassData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [assignModalOpen, setAssignModalOpen] = useState(false);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -47,6 +49,16 @@ const ShowClass = () => {
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
+
+  const handleConfirmationDialogOpen = () => {
+    setConfirmationDialogOpen(true);
+  };
+
+  const handleConfirmationDialogClose = () => {
+    setConfirmationDialogOpen(false);
+  };
+
 
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
@@ -69,10 +81,16 @@ const ShowClass = () => {
   }, []);
   
 const [openAssignModal, setOpenAssignModal] = useState(false);
+ // Function to open the assign modal
 
-const handleOpenAssignModal = () => setOpenAssignModal(true);
-const handleCloseAssignModal = () => setOpenAssignModal(false);
 
+const handleAssignModalOpen = () => {
+  setAssignModalOpen(true);
+};
+
+const handleAssignModalClose = () => {
+  setAssignModalOpen(false);
+};
 
 
   const handleConfirmDelete = async () => {
@@ -159,12 +177,78 @@ const handleCloseAssignModal = () => setOpenAssignModal(false);
     return <div>Class not found</div>;
   }
 
-
+  const handleSaveAssignModal = async (selectedStudents) => {
+    try {
+      // Make an API request to save the selected students for the class
+      const response = await axios.post(
+        `http://localhost:5000/classes/${id}/assign`,
+        { students: selectedStudents }
+      );
   
+      // Check if the response status is OK (2xx)
+      if (response.status === 200) {
+        // Fetch the updated class data after assigning students
+        await fetchClass();
+  
+        // Display a success message or perform any additional actions
+        console.log('Students assigned successfully');
+  
+        // Show alert
+        alert('Students assigned successfully');
+      } else {
+        // Handle unexpected response status
+        console.error(
+          'Error assigning students. Unexpected response:',
+          response
+        );
+      }
+    } catch (error) {
+      // Handle network errors or other exceptions
+      console.error('Error assigning students:', error);
+    }
+  };
+  
+  const handleRemoveAllStudents = async () => {
+    handleConfirmationDialogClose(); // Close the confirmation dialog
+
+    // Show a confirmation dialog using the browser's built-in window.confirm
+    const shouldRemoveAll = window.confirm("Are you sure you want to remove all students?");
+    
+    if (shouldRemoveAll) {
+      try {
+        // Make an API request to remove all students from the class
+        const response = await axios.post(
+          `http://localhost:5000/classes/${id}/remove`
+        );
+
+        // Check if the response status is OK (2xx)
+        if (response.status === 200) {
+          // Fetch the updated class data after removing all students
+          await fetchClass();
+
+          // Display a success message or perform any additional actions
+          console.log('All students removed successfully');
+
+          // Show alert
+          alert('All students removed successfully');
+        } else {
+          // Handle unexpected response status
+          console.error(
+            'Error removing all students. Unexpected response:',
+            response
+          );
+        }
+      } catch (error) {
+        // Handle network errors or other exceptions
+        console.error('Error removing all students:', error);
+      }
+    }
+  };
 
   return (
     <div>
-      <div className='EditClassItem'>
+    <div className='EditClassItem'>
+    <div style={{ display: 'flex', columnGap: '5px', flexDirection: 'row', alignItems: 'center' }}>
         <Button onClick={() => navigate(-1)} variant="outlined" startIcon={<EditIcon />} color="info">
           Go Back
         </Button>
@@ -173,15 +257,20 @@ const handleCloseAssignModal = () => setOpenAssignModal(false);
           Edit Class
         </Button>
 
-        <Button
-          onClick={handleOpenDialog}
-          variant="outlined"
-          startIcon={<DeleteIcon />}
-          color="error"
-        >
+        <Button onClick={handleOpenDialog} variant="outlined" startIcon={<DeleteIcon />} color="error">
           Delete Class
         </Button>
+
+
       </div>
+
+      <AssignStudentsModal
+        open={assignModalOpen}
+        onClose={handleAssignModalClose}
+        students={students}
+        onSave={handleSaveAssignModal}
+      />
+    </div>
 
       <div className='ShowClassData'>
         <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
@@ -221,10 +310,42 @@ const handleCloseAssignModal = () => setOpenAssignModal(false);
             <AttachMoneyIcon style={{ marginRight: '5px' }} />
             <strong>Fee:</strong> {classData.fee}
           </p>
+
+
+
+
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+  <Button onClick={handleAssignModalOpen} variant="outlined" color="primary" style={{ marginRight: '10px' }}>
+    Assign Students
+  </Button>
+
+  <Button
+    onClick={handleRemoveAllStudents}
+    variant="outlined"
+    color="secondary"
+  >
+    Remove All Students
+  </Button>
+</div>
+
+
+         
+
+      <p>
+        <strong>Current Students:</strong>{' '}
+        {classData.assignedStudents.map((studentId) => {
+          // Assuming you have the list of students available
+          const student = students.find((s) => s._id === studentId);
+
+          // Display the student name if found
+          return <span key={studentId}>{student ? student.firstName : `Unknown Student (${studentId})`}, </span>;
+        })}
+      </p>
+         
+
           <Divider style={{ margin: '15px 0' }} />
         </Paper>
       </div>
-
 
       <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', border: '2px solid #000', p: 4 }}>

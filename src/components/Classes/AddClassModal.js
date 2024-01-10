@@ -3,6 +3,9 @@ import React from 'react';
 import { Box, Button, Typography, Modal, TextField, MenuItem } from '@mui/material';
 import { PulseLoader } from 'react-spinners';
 import { BsFillPhoneFill, BsFillHouseDoorFill, BsFillBuildingFill, BsBookHalf, BsFillImageFill, BsFillArchiveFill, BsFillBookFill } from 'react-icons/bs';
+import { useState } from 'react';
+
+
 
 const style = {
   position: 'absolute',
@@ -23,7 +26,8 @@ const inputIconStyle = {
 };
 
 const AddClassModal = ({ open, handleClose, handleSubmit, loading, newClass, handleInputChange }) => {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const [students, setStudents] = useState([]);
 
   return (
     <Modal
@@ -184,17 +188,25 @@ const AddClassModal = ({ open, handleClose, handleSubmit, loading, newClass, han
   variant="outlined"
   fullWidth
   margin="normal"
-  type="String"
+  select
   name="assignedStudents"
+  multiple
   value={newClass.assignedStudents}
-  onChange={handleInputChange}
+  onChange={(e) => handleInputChange({ target: { name: 'assignedStudents', value: e.target.value } })}
   InputProps={{
     startAdornment: (
       <BsFillBookFill style={inputIconStyle} />
     ),
   }}
   required
-/>
+>
+  {students.map((student) => (
+    <MenuItem key={student._id} value={student._id}>
+      {student.firstName}
+    </MenuItem>
+  ))}
+</TextField>
+
             <Button type='submit' className='addstudentsubmit'>
               {loading ? 'Adding...' : 'Add Class'}
             </Button>

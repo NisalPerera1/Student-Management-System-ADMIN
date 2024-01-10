@@ -3,21 +3,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PulseLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
-
 import ClassCard from './ClassCard';
 import AddClassModal from './AddClassModal';
 import UpcomingClassesTable from './UpcomingClassesTable';
+import { Button } from 'react-bootstrap';
+import AssignStudentsModal from './AssignStudentsModal';
 
 const ClassList = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [classCount, setClassCount] = useState(0);
+
   const [newClass, setNewClass] = useState({
     name: '',
     day: '',
     time: '',
     // ... (other fields)
   });
+
+ 
 
   const [existingClasses, setExistingClasses] = useState([]);
   const [upcomingClasses, setUpcomingClasses] = useState([]);
@@ -93,6 +97,7 @@ const ClassList = () => {
           handleAssign={handleAssign}
         />
       </div>
+      
     </main>
   );
 };

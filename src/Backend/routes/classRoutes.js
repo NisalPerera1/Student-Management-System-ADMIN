@@ -9,6 +9,8 @@ router.get('/', classController.getAllClasses);
 router.get('/:id', classController.getClassById);
 router.put('/:id', classController.updateClassById);
 router.delete('/:id', classController.deleteClassById);
+router.post('/:id/assign', classController.assignStudentsToClass);
+router.post('/:id/remove', classController.removeAllStudentsFromClass);
 
 
 

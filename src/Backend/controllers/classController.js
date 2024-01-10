@@ -94,10 +94,69 @@ const deleteClassById = async (req, res) => {
 };
 
 
+const assignStudentsToClass = async (req, res) => {
+  const { id } = req.params;
+  const { students } = req.body;
+
+  try {
+    // Find the class by ID and update the assigned students
+    const updatedClass = await Class.findByIdAndUpdate(
+      id,
+      { $set: { assignedStudents: students } },
+      { new: true }
+    );
+
+    res.json({ message: 'Students assigned successfully', updatedClass });
+  } catch (error) {
+    console.error('Error assigning students to class:', error);
+    res.status(500).json({ error: 'Error assigning students to class' });
+  }
+};
+
+
+const removeAllStudentsFromClass = async (req, res) => {
+  const classId = req.params.id;
+
+  try {
+    console.log('Removing all students from class with ID:', classId);
+
+    // Find the class by ID
+    const foundClass = await Class.findById(classId);
+
+    if (!foundClass) {
+      console.log('Class not found');
+      return res.status(404).json({ error: 'Class not found' });
+    }
+
+    // Log the current assigned students
+    console.log('Current assigned students:', foundClass.assignedStudents);
+
+    // Remove all students from the class
+    foundClass.assignedStudents = [];
+
+    // Log the updated assigned students before saving
+    console.log('Updated assigned students:', foundClass.assignedStudents);
+
+    // Save the updated class
+    await foundClass.save();
+
+    console.log('All students removed successfully');
+
+    // Respond with success
+    return res.status(200).json({ message: 'All students removed successfully' });
+  } catch (error) {
+    console.error('Error removing all students:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
 module.exports = {
   createClass,
   getAllClasses,
   getClassById,
   updateClassById,
   deleteClassById,
+  assignStudentsToClass,
+  removeAllStudentsFromClass
 };
