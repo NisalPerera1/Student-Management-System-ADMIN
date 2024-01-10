@@ -18,11 +18,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
             <BsGrid1X2Fill className='icon' /> Dashboard
           </a>
         </li>
-        <li className='sidebar-list-item'>
-          <a href="">
-            <BsFillArchiveFill className='icon' /> Products
-          </a>
-        </li>
+
 
 
         <li className='sidebar-list-item'>
@@ -38,11 +34,6 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         </li>
 
 
-        <li className='sidebar-list-item'>
-          <a href="">
-            <BsListCheck className='icon' /> Inventory
-          </a>
-        </li>
         <li className='sidebar-list-item'>
         <Link to="/Calender" className="link">
                       <BsMenuButtonWideFill className='icon' /> Calender
